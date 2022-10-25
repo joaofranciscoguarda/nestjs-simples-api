@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  fullName   String
+  hash       String
+  email      String       @unique
+  Submission Submission[]
+
+  @@map("users")
+}
+
+model Submission {
+  id        Int    @id @default(autoincrement())
+  url       String
+  comment   String
+  contact   String
+  findWhere String
+  userId    Int
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("submissions")
+}

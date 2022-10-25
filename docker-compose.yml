@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  dev-db:
+    image: postgres:13
+    ports:
+      - 5434:5432
+    env_file:
+      - .env
+    networks:
+      - atividade_facul
+      
+networks:
+  atividade_facul:
